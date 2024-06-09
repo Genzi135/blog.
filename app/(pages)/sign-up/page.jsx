@@ -29,6 +29,7 @@ const SignUp = () => {
                         Sign Up
                     </CardTitle>
                 </CardHeader>
+                <CardContent><label className='tex-sm'>You already have an account? <span onClick={() => { router.push('/sign-in') }} className='font-semibold cursor-pointer'>Log in</span></label></CardContent>
                 <form onSubmit={handleSubmit}>
                     <CardContent>
                         <Label>Email:</Label>

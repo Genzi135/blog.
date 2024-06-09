@@ -19,10 +19,12 @@ const Login = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (email !== '' && password !== '') {
-            setAuth({ isLoggedIn: true, user: { email } });
-            router.push('/');
-        }
+        setAuth({ isLoggedIn: true, user: { email } });
+        router.push('/');
+        // if (email !== '' && password !== '') {
+        //     setAuth({ isLoggedIn: true, user: { email } });
+        //     router.push('/');
+        // }
     };
 
     return (
@@ -33,6 +35,7 @@ const Login = () => {
                         Login
                     </CardTitle>
                 </CardHeader>
+                <CardContent><label className='tex-sm'>Do you have an any account? <span onClick={() => { router.push('/sign-up') }} className='font-semibold cursor-pointer'>Sign up</span></label></CardContent>
                 <form onSubmit={handleSubmit}>
                     <CardContent>
                         <Label>Email:</Label>
