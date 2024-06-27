@@ -5,6 +5,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem,
 import { Bell, Bookmark, LogOut, NotebookText, User } from "lucide-react"
 import Link from "next/link"
 import { useState, useRef, useEffect } from 'react';
+import Tiptap from "./components/TipTapEditor.jsx"
 
 export default function Write() {
     const userData = {
@@ -15,44 +16,6 @@ export default function Write() {
     };
 
     const [content, setContent] = useState('');
-    const textareaRef = useRef(null);
-
-    const onTextareaChange = (e) => {
-        setContent(e.target.value);
-        adjustTextareaHeight();
-    };
-
-    const adjustTextareaHeight = () => {
-        if (textareaRef.current) {
-            textareaRef.current.style.height = 'auto';
-            textareaRef.current.style.height = textareaRef.current.scrollHeight + 'px';
-        }
-    };
-
-    useEffect(() => {
-        adjustTextareaHeight();
-    }, [content]);
-
-    useEffect(() => {
-        const handleTabPress = (e) => {
-            if (e.key === 'Tab') {
-                e.preventDefault();
-                const { selectionStart, selectionEnd, value } = textareaRef.current;
-                const newValue = value.substring(0, selectionStart) + '\t' + value.substring(selectionEnd);
-                setContent(newValue);
-                setTimeout(() => {
-                    textareaRef.current.selectionStart = textareaRef.current.selectionEnd = selectionStart + 1;
-                }, 0);
-            }
-        };
-
-        const textarea = textareaRef.current;
-        textarea.addEventListener('keydown', handleTabPress);
-
-        return () => {
-            textarea.removeEventListener('keydown', handleTabPress);
-        };
-    }, []);
 
     return (
         <main>
@@ -124,17 +87,10 @@ export default function Write() {
             </div>
             <div className="h-auto flex flex-col items-center ">
                 <input type='text'
-                    className="outline-none focus:outline-none w-[800px] h-20 mt-2 text-4xl font-semibold"
+                    className="outline-none focus:outline-none w-[700px] h-20 mt-2 text-4xl font-semibold"
                     placeholder="Title"
                 />
-                <textarea
-                    className="w-[800px] p-2 h-auto resize-none focus:outline-none"
-                    placeholder="Tell your story..."
-                    value={content}
-                    onChange={onTextareaChange}
-                    ref={textareaRef}
-                    style={{ overflow: 'hidden' }}
-                />
+                <Tiptap />
             </div>
         </main>
     );
